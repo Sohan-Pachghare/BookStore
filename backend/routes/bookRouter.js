@@ -1,22 +1,24 @@
 const express = require("express");
 const Book = require("../models/bookModel");
 const router = express.Router();
+
 //creat route
 router.post("/", async (req, res) => {
   try {
-    //validation
-    if (
-      !req.body.book.name ||
-      !req.body.book.author ||
-      !req.body.book.publishYear
-    ) {
-      return res.status(404).send("Send all required fiels");
-    }
+    // //validation
+    // if (
+    //   !req.body.book.name ||
+    //   !req.body.book.author ||
+    //   !req.body.book.publishYear
+    // ) {
+    //   return res.status(404).send("Send all required fiels");
+    // }
     // storing book info
+    console.log(req.body);
     const newBook = {
-      name: req.body.book.name,
-      author: req.body.book.author,
-      publishYear: req.body.book.publishYear,
+      name: req.body.data.name,
+      author: req.body.data.author,
+      publishYear: req.body.data.publishYear,
     };
     // creating book in DB
     const book = await Book.create(newBook);
@@ -46,7 +48,6 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const book = await Book.findById(id);
     res.json({
       books: book,
@@ -60,18 +61,19 @@ router.get("/:id", async (req, res) => {
 });
 
 //update
-router.put("/:id/edit", async (req, res) => {
+router.put("/edit/:id", async (req, res) => {
   try {
-    // validation;
+    validation;
     if (
-      !req.body.book.name ||
-      !req.body.book.author ||
-      !req.body.book.publishYear
+      !req.body.data.name ||
+      !req.body.data.author ||
+      !req.body.data.publishYear
     ) {
       return res.status(404).send("Send all required fiels");
     }
     const { id } = req.params;
-    const result = await Book.findByIdAndUpdate(id, { ...req.body.book });
+    console.log(req.body);
+    const result = await Book.findByIdAndUpdate(id, { ...req.body.data });
     if (!result) {
       return res.status(404).send({ message: "Book not found!" });
     }
@@ -85,7 +87,7 @@ router.put("/:id/edit", async (req, res) => {
 });
 
 //delete
-router.delete("/:id/delete", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
   const result = await Book.findByIdAndDelete(id);
   if (!result) {
