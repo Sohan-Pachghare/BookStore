@@ -14,7 +14,7 @@ const ShowBook = () => {
     axios
       .get(`http://localhost:3000/books/${id}`)
       .then((res) => {
-        setBook(res.data);
+        setBook(res.data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -33,23 +33,23 @@ const ShowBook = () => {
         <div className="flex justify-center items-center ">
           <div className="flex flex-col border-2 border-sky-400 rounded-xl sm:w-full md:w-1/2 p-4">
             <div className="my-4">
-              <span className="text-xl mr-4 text-gray-500">Id</span>
-              <span>{book._id}</span>
+              <span className="text-xl mr-4 text-gray-500">Id:</span>
+              <span className="text-xl mr-4 text-gray-500">{book._id}</span>
             </div>
             <div className="my-4">
-              <span className="text-xl mr-4 text-gray-500">Title</span>
-              <span>{book.title}</span>
+              <span className="text-xl mr-4 text-gray-500">Title:</span>
+              <span>{book.name}</span>
             </div>
             <div className="my-4">
-              <span className="text-xl mr-4 text-gray-500">Author</span>
+              <span className="text-xl mr-4 text-gray-500">Author:</span>
               <span>{book.author}</span>
             </div>
             <div className="my-4">
-              <span className="text-xl mr-4 text-gray-500">Publish Year</span>
+              <span className="text-xl mr-4 text-gray-500">Publish Year:</span>
               <span>{book.publishYear}</span>
             </div>
             <div className="my-4">
-              <span className="text-xl mr-4 text-gray-500">Create Time</span>
+              <span className="text-xl mr-4 text-gray-500">Create Time:</span>
               <span>{new Date(book.createdAt).toString()}</span>
             </div>
             <div className="my-4">

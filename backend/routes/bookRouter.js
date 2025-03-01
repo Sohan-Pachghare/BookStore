@@ -50,7 +50,7 @@ router.get("/:id", async (req, res) => {
     const { id } = req.params;
     const book = await Book.findById(id);
     res.json({
-      books: book,
+      data: book,
     });
   } catch (err) {
     console.log(err.message);
